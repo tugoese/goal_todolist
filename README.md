@@ -6,6 +6,7 @@
 - Expo-cli
 - NodeJS
 - npm
+- git
 
 ### Running:
 1. Clone the repository:
