@@ -3,9 +3,9 @@
 ## There might be weird styling if running on iOS
 
 ### Requirements:
-- Expo-cli
 - NodeJS
 - npm
+- expo-cli
 - git
 
 ### Running:
