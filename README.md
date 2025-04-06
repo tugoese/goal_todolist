@@ -7,6 +7,7 @@
 - npm
 - expo-cli
 - git
+- Android Studio or Xcode
 
 ### Running:
 1. Clone the repository:
