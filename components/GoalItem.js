@@ -1,16 +1,25 @@
 import { StyleSheet, View, Text, Pressable, Alert } from "react-native";
 
 function GoalItem(props) {
-  function confirmDeleteHandler() {
-    Alert.alert("Delete Goal", "Are you sure?", [
+  function confirmActionHandler() {
+    Alert.alert("Choose Action!", "What would you like to do?", [
       { text: "Cancel", style: "cancel" },
-      { text: "Delete", style: "destructive", onPress: () => props.onDeleteItem(props.id)}
+      { text: "Edit", onPress: () => props.onEditItem(props.id, props.text) },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: () => props.onDeleteItem(props.id),
+      },
     ]);
   }
 
   return (
     <View style={styles.goalItem}>
-      <Pressable android_ripple={{ color: "#210644" }} onPress={ confirmDeleteHandler } style={({ pressed }) => pressed && styles.pressedItem}>
+      <Pressable
+        android_ripple={{ color: "#210644" }}
+        onPress={confirmActionHandler}
+        style={({ pressed }) => pressed && styles.pressedItem}
+      >
         <Text style={styles.goalText}>{props.text}</Text>
       </Pressable>
     </View>

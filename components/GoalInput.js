@@ -14,7 +14,7 @@ function GoalInput(props) {
       return;
     }
     props.onAddGoal(enteredGoalText);
-    setEnteredGoalText("");
+    
   }
 
   return (
@@ -31,7 +31,7 @@ function GoalInput(props) {
             <Button title="Add Goal" onPress={addGoalHandler} color={"#5e0acc"} />
           </View>
           <View style={styles.button}>
-            <Button title="Cancel" onPress={() => { props.onCancel(), resetInputHandler()}} color={"#f31282"} />
+            <Button title="Cancel" onPress={() => { props.onCancel(), setEnteredGoalText("")}} color={"#f31282"} />
           </View>
         </View>
       </View>
@@ -41,7 +41,7 @@ function GoalInput(props) {
 
 export default GoalInput;
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     justifyContent: "center",

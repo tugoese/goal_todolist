@@ -2,12 +2,15 @@ import { useState, useMemo } from "react";
 import { StyleSheet, View, FlatList, Button } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-import GoalInput from "./components/GoalInput.js";
-import GoalItem from "./components/GoalItem.js";
+import GoalInput from "./components/GoalInput";
+import GoalItem from "./components/GoalItem";
+import GoalEditInput from "./components/GoalEditInput";
 
 export default function App() {
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [toDo, setToDo] = useState([]);
+  const [editModalVisible, setEditModalVisible] = useState(false);
+  const [goalToEdit, setGoalToEdit] = useState(null);
 
   function startAddGoalHandler() {
     setModalIsVisible(true);
@@ -31,6 +34,25 @@ export default function App() {
     });
   }
 
+  function startEditGoalHandler(id, text) {
+    setGoalToEdit({ id, text });
+    setEditModalVisible(true);
+  }
+
+  function editGoalHandler(newText) {
+    setToDo((currentToDo) =>
+      currentToDo.map((goal) =>
+        goal.id === goalToEdit.id ? { ...goal, text: newText } : goal
+      )
+    );
+    endEditGoalHandler();
+  }
+
+  function endEditGoalHandler() {
+    setEditModalVisible(false);
+    setGoalToEdit(null);
+  }
+
   const memoizedGoalItems = useMemo(() => {
     return (
       <FlatList
@@ -41,6 +63,7 @@ export default function App() {
               text={itemData.item.text}
               id={itemData.item.id}
               onDeleteItem={deleteGoalHandler}
+              onEditItem={startEditGoalHandler}
             />
           );
         }}
@@ -65,6 +88,14 @@ export default function App() {
             onAddGoal={addGoalHandler}
             onCancel={endAddGoalHandler}
           />
+
+          <GoalEditInput
+            visible={editModalVisible}
+            initialText={goalToEdit ? goalToEdit.text : ""}
+            onSave={editGoalHandler}
+            onCancel={endEditGoalHandler}
+          />
+
           {memoizedGoalItems}
         </View>
       </View>
