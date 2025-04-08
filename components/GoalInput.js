@@ -4,10 +4,6 @@ import { useState } from "react";
 function GoalInput(props) {
   const [enteredGoalText, setEnteredGoalText] = useState("");
 
-  function resetInputHandler() {
-    setEnteredGoalText("");
-  }
-
   function goalInputHandler(enteredText) {
     setEnteredGoalText(enteredText);
   }
@@ -18,7 +14,7 @@ function GoalInput(props) {
       return;
     }
     props.onAddGoal(enteredGoalText);
-    resetInputHandler();
+    setEnteredGoalText("");
   }
 
   return (
